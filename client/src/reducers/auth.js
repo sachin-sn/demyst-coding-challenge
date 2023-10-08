@@ -1,7 +1,12 @@
 import authActions from "../actions/authActions";
 const authorization = (state = { isAuth: false }, action) => {
-  const { LOGIN_REQUESTED, LOGIN_SUCCESSFUL, LOGIN_FAILED, LOGUT_REQUESTED } =
-    authActions;
+  const {
+    LOGIN_REQUESTED,
+    LOGIN_SUCCESSFUL,
+    LOGIN_FAILED,
+    LOGUT_REQUESTED,
+    GET_ALL_USERS,
+  } = authActions;
   switch (action.type) {
     case LOGIN_REQUESTED:
       return {
@@ -13,10 +18,7 @@ const authorization = (state = { isAuth: false }, action) => {
         ...state,
         isAuth: true,
         isLoading: false,
-        user: {
-          name: "Alphabet",
-          details: "Owners of google.com and its proprietary company",
-        },
+        user: action.org,
       };
     case LOGIN_FAILED:
       return {
@@ -30,6 +32,11 @@ const authorization = (state = { isAuth: false }, action) => {
         isAuth: false,
         isLoading: false,
         user: undefined, // removing user object
+      };
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        users: action.orgs,
       };
     default:
       return {

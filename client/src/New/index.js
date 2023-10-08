@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import React from "react";
 
 const Home = () => {
-  return <h2>New Application</h2>;
+  return <Box></Box>;
 };
 
 export default Home;

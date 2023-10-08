@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors"); // Import the cors middleware
 const orgRoutes = require("./Schema/Org/orgRoutes");
 const applicationRoutes = require("./Schema/Application/applicationRoutes");
 
@@ -10,6 +11,13 @@ const port = 3030;
 
 // Middleware
 app.use(express.json());
+
+//enable Cors
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Define a basic route
 app.get("/", (req, res) => {

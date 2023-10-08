@@ -11,12 +11,14 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import PasswordIcon from "@mui/icons-material/Password";
 import LockIcon from "@mui/icons-material/Lock";
-import authActions from "../actions/authActions";
+import authAuctions from "../actions/authActions";
+
+import UserTable from "./userTables";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -112,7 +114,7 @@ const User = (props) => {
               {props.user.name}
             </Typography>
             <Typography variant="subtitle2" gutterBottom>
-              {props.user.details}
+              {props.user.description}
             </Typography>
           </Box>
         </CardContent>
@@ -122,6 +124,11 @@ const User = (props) => {
 };
 
 const Home = (props) => {
+  useEffect(() => {
+    if (!props.users) {
+      props.getAllUsers();
+    }
+  }, []);
   return (
     <Grid container spacing={2} padding={2} variant="middle">
       <Grid item xs={8}>
@@ -132,6 +139,10 @@ const Home = (props) => {
           This is coding challenged application created, enter user name
           password, any username password works
         </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Sample available users
+        </Typography>
+        <UserTable users={props.users} />
       </Grid>
       <Grid item xs={4}>
         {!props.isAuth ? <Login {...props} /> : <User {...props} />}
@@ -149,8 +160,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     LoginClicked: (userName, password) => {
-      dispatch({ type: authActions.LOGIN_REQUESTED, userName, password }); // login requested
-      dispatch({ type: authActions.LOGIN_SUCCESSFUL }); // login successfull, mocking the  response now
+      authAuctions.Login(dispatch, userName, password);
+    },
+    getAllUsers: () => {
+      authAuctions.getAllUsers(dispatch);
     },
   };
 };

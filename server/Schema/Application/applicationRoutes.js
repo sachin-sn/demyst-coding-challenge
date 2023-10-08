@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getApplication, newApplication } = require("./applicationService");
-const Log = require("../../Log");
+const log = require("../../Log");
 
 // Create a new loan application
 router.post("/new", async (req, res) => {
@@ -10,7 +10,7 @@ router.post("/new", async (req, res) => {
     const res = await newApplication(application);
     return res;
   } catch (error) {
-    Log("new loan application", error);
+    log("new loan application", error);
     res.status(500).json({ error: "Failed to create a loan application" });
   }
 });
@@ -22,7 +22,7 @@ router.get("/get", async (req, res) => {
     const application = await getApplication(id);
     return application;
   } catch (error) {
-    Log("get loan application", error);
+    log("get loan application", error);
     res.status(500).json({ error: "Failed to retrieve loan application" });
   }
 });
