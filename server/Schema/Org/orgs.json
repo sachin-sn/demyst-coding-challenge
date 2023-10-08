@@ -1,0 +1,22 @@
+{
+  "orgs": [
+    {
+      "email": "google@abc.xyz",
+      "name": "alphabet",
+      "description": "Owners of google.com and its proprietary company",
+      "password": "$2y$12$iAdDW3ckmYh/wiW6U3dYoOzBUOOARxQvgzwMrOqDNbdTtbtmR5fI6"
+    },
+    {
+      "email": "Musk@x.com",
+      "name": "SpaceX",
+      "description": "Company mainly works on putting up satelites for NASA and other countries",
+      "password": "$2y$12$iAdDW3ckmYh/wiW6U3dYoOzBUOOARxQvgzwMrOqDNbdTtbtmR5fI6"
+    },
+    {
+      "email": "tim.cook@apple.com",
+      "name": "Apple",
+      "description": "Apple company will produce wide range of user products",
+      "password": "$2y$12$iAdDW3ckmYh/wiW6U3dYoOzBUOOARxQvgzwMrOqDNbdTtbtmR5fI6"
+    }
+  ]
+}

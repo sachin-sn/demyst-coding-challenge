@@ -1,26 +1,29 @@
 const express = require("express");
 const router = express.Router();
-const LoanApp = require("./application"); // Import the Note model
+const { getApplication, newApplication } = require("./applicationService");
+const Log = require("../../Log");
 
-// Create a new note
-router.post("/loanapp", async (req, res) => {
+// Create a new loan application
+router.post("/new", async (req, res) => {
   try {
-    const { title, content } = req.body;
-    const la = new LoanApp({ title, content });
-    await la.save();
-    res.json(la);
+    const { application } = req.body;
+    const res = await newApplication(application);
+    return res;
   } catch (error) {
-    res.status(500).json({ error: "Failed to create a note" });
+    Log("new loan application", error);
+    res.status(500).json({ error: "Failed to create a loan application" });
   }
 });
 
-// Get all notes
-router.get("/loanapp", async (req, res) => {
+// Get matching loanApplication
+router.get("/get", async (req, res) => {
   try {
-    const las = await LoanApp.find();
-    res.json(las);
+    const { id } = req.query.id;
+    const application = await getApplication(id);
+    return application;
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve notes" });
+    Log("get loan application", error);
+    res.status(500).json({ error: "Failed to retrieve loan application" });
   }
 });
 
