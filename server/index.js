@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const loanAppRoutes = require("./Schema/loanAppRoutes");
+const loanAppRoutes = require("./Schema/Application/applicationRoutes");
 
 // init express
 const app = express();

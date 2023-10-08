@@ -1,8 +1,9 @@
 // src/reducers/index.js
 import { combineReducers } from "redux";
+import authorization from "./auth";
 
 const rootReducer = combineReducers({
-  // include different reducers
+  auth: authorization,
 });
 
 export default rootReducer;

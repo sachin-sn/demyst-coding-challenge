@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const LoanApp = require("./loanApp"); // Import the Note model
+const LoanApp = require("./application"); // Import the Note model
 
 // Create a new note
 router.post("/loanapp", async (req, res) => {

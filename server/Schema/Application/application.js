@@ -5,6 +5,6 @@ const loanApp = new mongoose.Schema({
   content: String,
 });
 
-const LA = mongoose.model("Note", loanApp);
+const loanApplication = mongoose.model("loanApp", loanApp);
 
-module.exports = LA;
+module.exports = loanApplication;
