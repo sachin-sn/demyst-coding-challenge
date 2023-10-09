@@ -1,7 +1,6 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
 const router = express.Router();
-const { getOrg, getAllOrg } = require("./orgService"); // Import the org model
+const { getOrg, getAllOrg, auth } = require("./orgService"); // Import the org model
 const { log } = require("../../Log");
 
 // Get matching org
@@ -38,13 +37,10 @@ router.get("/auth", async (req, res) => {
     log("login requested");
     const email = req.query.email;
     const password = req.query.password;
-    const org = await getOrg(email);
+    const org = await auth(email, password);
     if (org) {
-      const auth = comparePassword(password, org.password);
-      delete org.password;
       res.send({
-        org,
-        ...auth,
+        ...org,
       });
     }
     return {
@@ -55,15 +51,5 @@ router.get("/auth", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve user" });
   }
 });
-
-const comparePassword = (plainPassword, dbPassword) => {
-  let passwordIsValid = bcrypt.compareSync(plainPassword, dbPassword);
-  if (passwordIsValid) {
-    log("Compare password success", "user authorized");
-    return { auth: true, token: token }; // in the future we can implement JWT token for token based auth
-  }
-  log("Compare password failed", "user password incorrect");
-  return { auth: false };
-};
 
 module.exports = router;

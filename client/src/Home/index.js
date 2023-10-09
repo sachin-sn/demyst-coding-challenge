@@ -10,6 +10,8 @@ import {
   Divider,
   CardContent,
   Button,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
@@ -24,6 +26,7 @@ import { getFromLocalStorage } from "../service";
 const Login = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordClicked, setPasswordClicked] = useState(false);
   return (
     <>
       <Card
@@ -82,6 +85,7 @@ const Login = (props) => {
             <Button
               variant="contained"
               onClick={() => {
+                setPasswordClicked(true);
                 props.LoginClicked(userName, password);
               }}
               startIcon={<LockIcon />}
@@ -89,6 +93,14 @@ const Login = (props) => {
               Login
             </Button>
           </Box>
+          {!props.isAuth && passwordClicked ? (
+            <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+              <Alert severity="error">
+                <AlertTitle>email or password incorrect</AlertTitle>
+                Please check the email or password entered
+              </Alert>
+            </Box>
+          ) : null}
         </CardContent>
       </Card>
     </>

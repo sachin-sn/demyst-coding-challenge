@@ -65,9 +65,20 @@ async function getApplications(email) {
   return [];
 }
 
+// delete the application currently used only for unit tests, can be extended to handle application delete in later on stage
+async function deleteApplication(loanApplicationId) {
+  const applications = await jsonDB.loadData();
+  const updatedApplications = applications.filter(
+    (apl) => apl.Id !== loanApplicationId
+  );
+  await jsonDB.saveData(updatedApplications);
+  return updatedApplications;
+}
+
 module.exports = {
   newApplication,
   updateApplication,
   getApplication,
   getApplications,
+  deleteApplication,
 };

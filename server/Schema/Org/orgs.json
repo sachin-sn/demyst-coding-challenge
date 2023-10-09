@@ -5,21 +5,21 @@
       "name": "alphabet",
       "year": "1998",
       "description": "Owners of google.com and its proprietary company",
-      "password": "$2y$12$/nzOF7m0s2MP3TU.b3P5p.2aurlaxv5kjBKrqlDrYRknk2RgcdGOO"
+      "password": "$2y$12$fDTUpuQQ1gOcbvgW1kvfVeGMwZuEzHujiWpR1zFzdvI8v0XbL0uKe"
     },
     {
       "email": "Musk@x.com",
       "name": "SpaceX",
       "year": "2002",
       "description": "Company mainly works on putting up satelites for NASA and other countries",
-      "password": "$2y$12$/nzOF7m0s2MP3TU.b3P5p.2aurlaxv5kjBKrqlDrYRknk2RgcdGOO"
+      "password": "$2y$12$fDTUpuQQ1gOcbvgW1kvfVeGMwZuEzHujiWpR1zFzdvI8v0XbL0uKe"
     },
     {
       "email": "tim.cook@apple.com",
       "name": "Apple",
       "year": "1976",
       "description": "Apple company will produce wide range of user products",
-      "password": "$2y$12$/nzOF7m0s2MP3TU.b3P5p.2aurlaxv5kjBKrqlDrYRknk2RgcdGOO"
+      "password": "$2y$12$fDTUpuQQ1gOcbvgW1kvfVeGMwZuEzHujiWpR1zFzdvI8v0XbL0uKe"
     }
   ]
 }

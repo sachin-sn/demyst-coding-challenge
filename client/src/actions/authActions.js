@@ -16,12 +16,16 @@ const authActions = {
     axios
       .get(`${baseUrl}/auth?email=${userName}&password=${password}`)
       .then((response) => {
-        dispatch({
-          type: "LOGIN_SUCCESSFUL",
-          org: response.data.org,
-          isAuth: response.data.isAuth,
-        });
-        storeToLocalStorage("org", response.data.org);
+        if (response.data.auth.auth) {
+          dispatch({
+            type: "LOGIN_SUCCESSFUL",
+            org: response.data.org,
+            isAuth: response.data.auth.auth,
+          });
+          storeToLocalStorage("org", response.data.org);
+        } else {
+          dispatch({ type: "LOGIN_FAILED", isAuth: false });
+        }
       })
       .catch((error) => {
         dispatch({ type: "LOGIN_FAILED" });
