@@ -70,4 +70,8 @@ npm run startserver
 
 # start the client
 npm run start
+
+# to run tests
+npm run test
+
 ```
