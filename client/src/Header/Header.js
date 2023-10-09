@@ -15,8 +15,9 @@ import MenuItem from "@mui/material/MenuItem";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import PersonIcon from "@mui/icons-material/Person";
 import authActions from "../actions/authActions";
+import { getFromLocalStorage } from "../service";
 
-const pages = ["New", "History"];
+const pages = ["Application"];
 const settings = ["Logout"];
 
 const Header = (props) => {
@@ -151,7 +152,7 @@ const Header = (props) => {
               ))}
             </Box>
           </>
-          {props.isAuth ? (
+          {props.user ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton
@@ -197,13 +198,14 @@ const Header = (props) => {
 
 const mapState = (state) => {
   return {
-    ...state.auth,
+    user: state.auth.user || getFromLocalStorage("org"),
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     logoutClicked: () => {
+      localStorage.removeItem("org");
       dispatch({ type: authActions.LOGUT_REQUESTED });
     },
   };

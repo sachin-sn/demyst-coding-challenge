@@ -2,12 +2,11 @@ const express = require("express");
 const cors = require("cors"); // Import the cors middleware
 const orgRoutes = require("./Schema/Org/orgRoutes");
 const applicationRoutes = require("./Schema/Application/applicationRoutes");
+const accountingRoutes = require("./Schema/AccountingSoftware/accountingRoutes");
 
 // init express
 const app = express();
 const port = 3030;
-
-// Mango DB
 
 // Middleware
 app.use(express.json());
@@ -26,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/loan", applicationRoutes);
 app.use("/api/org", orgRoutes);
+app.use("/api/balancesheet", accountingRoutes);
 
 // Start the server
 app.listen(port, () => {

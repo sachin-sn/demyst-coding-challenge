@@ -19,6 +19,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import authAuctions from "../actions/authActions";
 
 import UserTable from "./userTables";
+import { getFromLocalStorage } from "../service";
 
 const Login = (props) => {
   const [userName, setUserName] = useState("");
@@ -44,7 +45,7 @@ const Login = (props) => {
               fullWidth
               sx={{ marginTop: "20px" }}
             >
-              <InputLabel>User name</InputLabel>
+              <InputLabel>Email</InputLabel>
               <Input
                 value={userName}
                 onChange={(e) => {
@@ -136,16 +137,13 @@ const Home = (props) => {
           Welcome to the loan application
         </Typography>
         <Typography variant="body1" gutterBottom>
-          This is coding challenged application created, enter user name
-          password, any username password works
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Sample available users
+          This is coding challenged application created, Please fill in the
+          email and password
         </Typography>
         <UserTable users={props.users} />
       </Grid>
       <Grid item xs={4}>
-        {!props.isAuth ? <Login {...props} /> : <User {...props} />}
+        {!props.user ? <Login {...props} /> : <User {...props} />}
       </Grid>
     </Grid>
   );
@@ -153,7 +151,9 @@ const Home = (props) => {
 
 const mapState = (state) => {
   return {
-    ...state.auth,
+    user: state.auth.user || getFromLocalStorage("org"),
+    isAuth: state.isAuth,
+    users: state.auth.users,
   };
 };
 

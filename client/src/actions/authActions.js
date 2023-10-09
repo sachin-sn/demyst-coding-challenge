@@ -1,4 +1,5 @@
 import axios from "axios";
+import { storeToLocalStorage } from "../service";
 
 // Creating actions for each of the reducers
 const baseUrl = "http://localhost:3030/api/org";
@@ -20,6 +21,7 @@ const authActions = {
           org: response.data.org,
           isAuth: response.data.isAuth,
         });
+        storeToLocalStorage("org", response.data.org);
       })
       .catch((error) => {
         dispatch({ type: "LOGIN_FAILED" });

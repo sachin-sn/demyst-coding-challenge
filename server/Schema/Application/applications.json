@@ -1,3 +1,8 @@
-{
-  "applications": []
-}
+[
+  {
+    "email": "google@abc.xyz",
+    "createdDate": "9 - 9 - 2023 9:55",
+    "status": "new",
+    "Id": "50398b21-c88d-43a7-bb10-8674fa801f01"
+  }
+]

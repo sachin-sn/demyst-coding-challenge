@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header/Header";
 import { Container, Box } from "@mui/material";
 import Home from "./Home";
-import New from "./New";
-import History from "./History";
+import Loan from "./Loan";
+import Application from "./Application";
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
           <Box sx={{ bgcolor: "#eee", height: "100vh", width: "100%" }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/New" element={<New />} />
-              <Route path="/History" element={<History />} />
+              <Route path="/Loan/:id?" element={<Loan />} />
+              <Route path="/Application" element={<Application />} />
             </Routes>
           </Box>
         </Container>
