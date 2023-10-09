@@ -5,7 +5,6 @@ const jsonDB = new JSONdb("./Org/orgs.json");
 
 async function getOrg(email) {
   const orgs = await jsonDB.loadData().orgs;
-  log("get orgs requested from DB", orgs);
   if (orgs) {
     const org = orgs.find((usr) => usr.email === email);
     return org;

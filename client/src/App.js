@@ -12,7 +12,7 @@ function App() {
       <div>
         <Header />
         <Container maxWidth="xlg" sx={{ marginTop: "100px" }}>
-          <Box sx={{ bgcolor: "#eee", height: "100vh", width: "100%" }}>
+          <Box sx={{ bgcolor: "#eee", minHeight: "100vh", width: "100%" }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Loan/:id?" element={<Loan />} />

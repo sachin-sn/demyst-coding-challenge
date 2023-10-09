@@ -27,6 +27,9 @@ const ApplicationWidgets = (props) => {
           {appl.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
+          {appl.description}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
           Created Date:&nbsp;{appl.createdDate}
         </Typography>
         {appl.updatedDate ? (
@@ -42,6 +45,26 @@ const ApplicationWidgets = (props) => {
         >
           Status: {appl.status}
         </Typography>
+        {appl.status === "submitted" ? (
+          <box>
+            <Divider />
+            <Typography
+              sx={{ fontSize: 12 }}
+              variant="body1"
+              align="justify"
+              component="div"
+            >
+              Loan amount Requested: &nbsp;{formatAmount(appl.loanAmount)}
+              <br />
+              Loan amount granted: &nbsp;
+              {formatAmount(
+                appl.loanAmount * (appl.decision.preAssessmentValue / 100)
+              )}
+              <br />
+              reason: &nbsp;{appl.decision.profitSummary}
+            </Typography>
+          </box>
+        ) : null}
       </CardContent>
       <CardActions>
         <Button
@@ -57,6 +80,13 @@ const ApplicationWidgets = (props) => {
     </Card>
   ));
 };
+
+function formatAmount(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "INR",
+  }).format(value);
+}
 
 const Home = (props) => {
   const history = useNavigate();
