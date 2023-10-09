@@ -8,6 +8,7 @@ Coding challenge to test the coding skills of the candidate
 - [Demo](#demo)
 - [Features](#features)
 - [Installation](#installation)
+- [References](#references-used)
 
 ## About
 
@@ -75,3 +76,7 @@ npm run start
 npm run test
 
 ```
+
+## References used
+
+MUI: https://mui.com/material-ui/getting-started/
