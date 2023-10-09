@@ -24,7 +24,6 @@ async function updateApplication(loanApplication) {
     if (application.isSubmitted) {
       application.status = "submitted";
       const org = await getOrg(application.email);
-      console.log(org);
       const decision = submitToDecisionEngine(application, org);
       application.decision = decision;
     } else {

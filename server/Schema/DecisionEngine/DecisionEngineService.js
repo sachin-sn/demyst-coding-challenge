@@ -26,6 +26,12 @@ function calculateTotalProfit(balanceSheet) {
     return accumulator + currentItem.profitOrLoss;
   }, 0);
 }
+function formatAmount(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "INR",
+  }).format(value);
+}
 
 // Mocking submission to decision engine
 const submitToDecisionEngine = (loanApplication, org) => {
@@ -34,9 +40,13 @@ const submitToDecisionEngine = (loanApplication, org) => {
   const preAssessmentValue = calculatePreAssessment(balanceSheet, loanAmount);
   let profitSummary = "";
   if (totalProfit > 0) {
-    profitSummary = `the ${org.name} did exceptionally well in the year ${balanceSheet[0].year} and made a profit of Rs. ${totalProfit}`;
+    profitSummary = `the ${org.name} did exceptionally well in the year ${
+      balanceSheet[0].year
+    } and made a profit of ${formatAmount(totalProfit)}`;
   } else {
-    profitSummary = `the ${org.name} did not do well in the year ${balanceSheet[0].year} and made a loss of Rs. ${totalProfit}`;
+    profitSummary = `the ${org.name} did not do well in the year ${
+      balanceSheet[0].year
+    } and made a loss of ${formatAmount(totalProfit)}`;
   }
   const decisionObject = {
     Name: org.name,

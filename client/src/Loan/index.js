@@ -8,19 +8,15 @@ import {
   Typography,
   Button,
   TextField,
-  FormControlLabel,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import {
-  CurrencyRupee,
-  CreditScoreOutlined,
-  CheckBox,
-  Save,
-} from "@mui/icons-material";
+import { CurrencyRupee, CreditScoreOutlined, Save } from "@mui/icons-material";
 import { connect } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import loanApplicationActions from "../actions/loanApplicationActions";
-import { getFromLocalStorage } from "../service";
+import { getFromLocalStorage, formatAmount } from "../service";
 import BalanceSheet from "./Balancesheet";
 
 const accountingProvider = [
@@ -34,12 +30,15 @@ const reviewOptions = [
   { key: "Reviewed", value: true },
 ];
 
-const getBalanceSheetSection = (accountingProviderType, props) => {
-  if (accountingProviderType && !props.balanceSheet)
+const getBalanceSheetSection = (
+  accountingProviderType,
+  balanceSheet,
+  props
+) => {
+  if (accountingProviderType && !balanceSheet)
     return (
       <Button
         variant="contained"
-        isDisabled={props.isBalanceSheetLoading}
         onClick={() => {
           props.getBalanceSheet(accountingProviderType);
         }}
@@ -47,8 +46,8 @@ const getBalanceSheetSection = (accountingProviderType, props) => {
         Get balance sheet
       </Button>
     );
-  if (props.balanceSheet) {
-    return <BalanceSheet balanceSheet={props.balanceSheet} />;
+  if (balanceSheet) {
+    return <BalanceSheet balanceSheet={balanceSheet} />;
   }
   return null;
 };
@@ -57,7 +56,15 @@ const Loan = (props) => {
   const history = useNavigate();
   const [searchParam] = useSearchParams();
   const applId = searchParam.get("id");
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [businessIdea, setBusinessIdea] = useState("");
+  const [details, setDetails] = useState("");
+  const [loanAmount, setLoanAmount] = useState(0);
+  const [accountPrd, setaccountPrd] = useState("");
+  const [reviewed, setReviewed] = useState("");
+  const [balanceSheet, setBalanceSheet] = useState("");
+
   useEffect(() => {
     const org = props.user;
     if (!org) {
@@ -67,41 +74,41 @@ const Loan = (props) => {
       if (applId) {
         props.getAppl(applId, props.applications);
       }
-      if (props.application && props.application.status === "submitted") {
+    }
+    if (props.application) {
+      const {
+        title,
+        description,
+        loanAmount,
+        accountingProvider,
+        balanceSheet,
+        status,
+      } = props.application;
+      setBusinessIdea(title);
+      setDetails(description);
+      setLoanAmount(loanAmount);
+      setaccountPrd(accountingProvider);
+      setBalanceSheet(balanceSheet);
+      if (status === "submitted") {
         setIsSubmitted(true);
       }
     }
-  }, [props]);
+  }, [props.isloading, props.application]);
 
   useEffect(() => {
-    setBalanceSheet(props.balanceSheet);
-  }, props.BalanceSheet);
+    if (props.application && props.application.balanceSheet) {
+      setBalanceSheet(props.application.balanceSheet);
+    }
+    if (props.balanceSheet) {
+      setBalanceSheet(props.balanceSheet);
+    }
+  }, [props.application, props.balanceSheet]);
 
-  const [businessIdea, setBusinessIdea] = useState(
-    props.application ? props.application.title : null
-  );
-  const [details, setDetails] = useState(
-    props.application ? props.application.description : null
-  );
-  const [loanAmount, setLoanAmount] = useState(
-    props.application ? props.application.loanAmount : null
-  );
-  const [accountPrd, setaccountPrd] = useState(
-    props.application ? props.application.accountingProvider : null
-  );
-  const [reviewed, setReviewed] = useState(
-    props.application ? props.application.reviewed : null
-  );
-  const [balanceSheet, setBalanceSheet] = useState(
-    props.BalanceSheet || props.application
-      ? props.application.balanceSheet
-      : null
-  );
   const isSubmitDisabled = () => {
     return !businessIdea || !details || !loanAmount || !accountPrd || !reviewed;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (isSubmitClicked) => {
     const application = {
       Id: applId,
       title: businessIdea,
@@ -112,13 +119,13 @@ const Loan = (props) => {
       reviewed: props.BalanceSheet ? reviewed : "",
       email: props.user.email,
       org: props.name,
+      isSubmitted: isSubmitClicked,
     };
     props.updateAppl(application);
   };
 
   if (props.isLoading)
     return <Typography variant="body1">Loading...</Typography>;
-
   return (
     <Grid container spacing={2} padding={2} variant="middle">
       <Grid item xs="8">
@@ -162,7 +169,6 @@ const Loan = (props) => {
             <Input
               value={loanAmount}
               disabled={isSubmitted}
-              type="number"
               onChange={(e) => {
                 setLoanAmount(e.target.value);
               }}
@@ -203,7 +209,7 @@ const Loan = (props) => {
         </Box>
 
         <Box sx={{ padding: "20px" }} variant="middle">
-          {getBalanceSheetSection(accountPrd, props)}
+          {getBalanceSheetSection(accountPrd, balanceSheet, props)}
         </Box>
         <Box sx={{ padding: "20px" }} variant="middle">
           {balanceSheet && !isSubmitted ? (
@@ -232,18 +238,49 @@ const Loan = (props) => {
             </FormControl>
           ) : null}
         </Box>
-        <Box sx={{ padding: "20px" }} variant="middle">
-          <Button
-            variant="contained"
-            disabled={isSubmitDisabled()}
-            onClick={() => {
-              handleSubmit();
-            }}
-          >
-            <Save />
-            &nbsp; Submit
-          </Button>
-        </Box>
+        {isSubmitted ? (
+          <Box sx={{ padding: "20px" }} variant="middle">
+            <Alert severity="info">
+              <AlertTitle>Loan proccessed</AlertTitle>
+              Loan percentage:{" "}
+              <strong>{props.application.decision.preAssessmentValue}%</strong>
+              <br />
+              Loan value:
+              <strong>
+                {formatAmount(
+                  props.application.loanAmount *
+                    (props.application.decision.preAssessmentValue / 100)
+                )}
+              </strong>{" "}
+              <br />
+              Reason:{" "}
+              <strong>{props.application.decision.profitSummary}</strong>
+            </Alert>
+          </Box>
+        ) : null}
+        {!isSubmitted ? (
+          <Box sx={{ padding: "20px" }} variant="middle">
+            <Button
+              variant="contained"
+              onClick={() => {
+                handleSubmit();
+              }}
+            >
+              &nbsp; Save
+            </Button>
+            &nbsp;
+            <Button
+              variant="contained"
+              disabled={isSubmitDisabled()}
+              onClick={() => {
+                handleSubmit(true);
+              }}
+            >
+              <Save />
+              &nbsp; Submit
+            </Button>
+          </Box>
+        ) : null}
       </Grid>
       <Grid item xs={4}>
         <Box sx={{ padding: "20px" }} variant="middle">

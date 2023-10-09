@@ -9,3 +9,11 @@ export const getFromLocalStorage = (key) => {
   }
   return null;
 };
+
+//formatting values
+export const formatAmount = (value) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "INR",
+  }).format(value);
+};

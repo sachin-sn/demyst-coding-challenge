@@ -95,7 +95,105 @@
   {
     "email": "google@abc.xyz",
     "createdDate": "9 - 9 - 2023 14:37",
-    "status": "new",
-    "Id": "98a61023-b312-418d-bb76-8aa215f91f61"
+    "status": "submitted",
+    "Id": "98a61023-b312-418d-bb76-8aa215f91f61",
+    "title": "Build next gen Car",
+    "description": "Building next gen car, made from 100 percent recycled material, which uses hydrogen fuel cells, which eco-friendly and cost effective. It can Zero to 62 mph in 3 seconds, It has 4 seating capacity and plenty of boot space too.",
+    "loanAmount": "100000",
+    "accountingProvider": "XERO",
+    "balanceSheet": [
+      {
+        "year": 2022,
+        "month": 12,
+        "profitOrLoss": 23473,
+        "assetsValue": 48153
+      },
+      {
+        "year": 2022,
+        "month": 11,
+        "profitOrLoss": 5642,
+        "assetsValue": 89564
+      },
+      {
+        "year": 2022,
+        "month": 10,
+        "profitOrLoss": 46642,
+        "assetsValue": 10859
+      },
+      {
+        "year": 2022,
+        "month": 9,
+        "profitOrLoss": 78508,
+        "assetsValue": 95594
+      },
+      {
+        "year": 2022,
+        "month": 8,
+        "profitOrLoss": 88807,
+        "assetsValue": 18447
+      },
+      {
+        "year": 2022,
+        "month": 7,
+        "profitOrLoss": 41995,
+        "assetsValue": 89599
+      },
+      {
+        "year": 2022,
+        "month": 6,
+        "profitOrLoss": 46410,
+        "assetsValue": 33611
+      },
+      {
+        "year": 2022,
+        "month": 5,
+        "profitOrLoss": 2699,
+        "assetsValue": 70272
+      },
+      {
+        "year": 2022,
+        "month": 4,
+        "profitOrLoss": 57789,
+        "assetsValue": 30062
+      },
+      {
+        "year": 2022,
+        "month": 3,
+        "profitOrLoss": 94723,
+        "assetsValue": 59757
+      },
+      {
+        "year": 2022,
+        "month": 2,
+        "profitOrLoss": 43606,
+        "assetsValue": 97086
+      },
+      {
+        "year": 2022,
+        "month": 1,
+        "profitOrLoss": 4937,
+        "assetsValue": 30584
+      }
+    ],
+    "reviewed": "",
+    "updatedDate": "9 - 9 - 2023 16:29",
+    "isSubmitted": true,
+    "decision": {
+      "Name": "alphabet",
+      "establishedYear": "1998",
+      "profitSummary": "the alphabet did exceptionally well in the year 2022 and made a profit of ₹535,231.00",
+      "preAssessmentValue": 100
+    }
+  },
+  {
+    "email": "google@abc.xyz",
+    "createdDate": "9 - 9 - 2023 16:41",
+    "status": "in-progress",
+    "Id": "382c142e-2729-4051-89e3-c87a6d5b6abc",
+    "title": "Building next gen Bike",
+    "description": "Building next gen bike, with AI integration. The AI integration will help the rider with navigation, bike self diagnosis and many other features. It will be running on hydrogen fuel cells and battery for best of both worlds.",
+    "loanAmount": "250000",
+    "reviewed": "",
+    "updatedDate": "9 - 9 - 2023 16:45"
   }
 ]
