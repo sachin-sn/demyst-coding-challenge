@@ -22,7 +22,6 @@ router.get("/all", async (req, res) => {
   try {
     log("getAllOrgs requested");
     const orgs = await getAllOrg();
-    log("get orgs requested from DB", orgs);
     res.send({ orgs: orgs });
   } catch (error) {
     log("org fetch all error:", error);
