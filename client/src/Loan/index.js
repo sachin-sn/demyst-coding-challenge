@@ -70,12 +70,19 @@ const Loan = (props) => {
     if (!org) {
       history("/");
     }
-    if (!props.application && !props.isLoading) {
+    if (
+      (props.application && props.application.Id !== applId) ||
+      (!props.application && !props.isLoading)
+    ) {
       if (applId) {
-        props.getAppl(applId, props.applications);
+        props.getAppl(applId);
       }
     }
-    if (props.application) {
+    if (
+      props.application &&
+      props.application &&
+      props.application.Id === applId
+    ) {
       const {
         title,
         description,
@@ -329,16 +336,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getAppl: (applicationId, applications) => {
-      if (applications && applications.length > 0) {
-        const loanApp = applications.find((appl) => appl.Id === applicationId);
-        dispatch({
-          type: loanApplicationActions.GET_APPLICATION_SUCCESS,
-          application: loanApp,
-        });
-      } else {
-        loanApplicationActions.getApplication(dispatch, applicationId);
-      }
+    getAppl: (applicationId) => {
+      loanApplicationActions.getApplication(dispatch, applicationId);
     },
     getBalanceSheet: (acoountingType) => {
       loanApplicationActions.getBalanceSheet(dispatch, acoountingType);
